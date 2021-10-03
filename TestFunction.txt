@@ -1,0 +1,20 @@
+///
+///Function
+///
+CREATE or ALTER FUNCTION GetMoneyValue( @charCode varchar(50), @date datetime ) 
+RETURNS TABLE 
+	as
+	  return
+	  (
+		select 
+			 * 
+		from [Money].[dbo].[MoneyTable] 
+				where CharCode = @charCode and cast([DateOfUpload] as date) = @date
+	  )
+/////////////////////////
+
+//////////
+How to use
+//////////
+select * from GetMoneyValue('BYN','20211004')
+////////////
