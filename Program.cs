@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using MyTetingApp.DbContext;
-using MyTetingApp.Models;
 
 namespace MyTetingApp
 {
