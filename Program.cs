@@ -16,15 +16,15 @@ namespace MyTetingApp
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            string data = string.Empty;
+            string currentData = string.Empty;
             DateTime today = DateTime.Now;
-            data = today.Date.ToShortDateString();
+            currentData = today.Date.ToShortDateString();
 
             string url = "http://www.cbr.ru/scripts/XML_daily.asp?date_req=";
 
-            url += data;
+            url += currentData;
 
-            var table = GetMonyTable(url);
+            var table = GetMoneyTable(url);
 
             using (SqlBulkCopy bulkInsert = new SqlBulkCopy(connectionString))
             {
@@ -50,11 +50,9 @@ namespace MyTetingApp
                 }
             }
         }
-
-        
         
 
-        public static DataTable GetMonyTable(string url)
+        public static DataTable GetMoneyTable(string url)
         {
             DataSet ds = new DataSet();
             ds.ReadXml(url);
@@ -69,25 +67,6 @@ namespace MyTetingApp
             }
 
             return result;
-        }
-
-        public static String GetUSDRate(string url)
-        {
-            //XmlDocument xml_doc = new XmlDocument();
-            //xml_doc.Load(url);
-            
-
-            DataSet ds = new DataSet();
-            ds.ReadXml(url);
-            DataTable currency = ds.Tables["Valute"];
-            foreach (DataRow row in currency.Rows)
-            {
-                if (row["CharCode"].ToString() == "USD") //Ищу нужный код валюты
-                {
-                    return row["Value"].ToString(); //Возвращаю значение курсы валюты
-                }
-            }
-            return "";
         }
     }
 }
