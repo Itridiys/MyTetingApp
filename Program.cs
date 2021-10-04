@@ -42,7 +42,7 @@ namespace MyTetingApp
 
             using (var db = new AppDbContext())
             {
-                var cash = db.MoneyTable.Where(x => x.DateOfUpload == date && x.CharCode == charCode).OrderBy(x => x.Id);
+                var cash = db.MoneyTable.Where(x => x.DateOfUpload == date && x.CharCode == charCode.ToUpper()).OrderBy(x => x.Id);
                 foreach (var item in cash)
                 {
                     Console.WriteLine($"Currency {item.Name} equal to {item.Value}");
